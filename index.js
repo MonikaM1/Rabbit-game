@@ -86,9 +86,9 @@ document.onkeydown=function(e){
     if(e.key==="ArrowLeft"){
         console.log(moveRabbitLeft(matrix))
     }
-    if(e.key==="ArrowUp"){
-        console.log(moveRabbitUp(matrix))
-    }
+    // if(e.key==="ArrowUp"){
+    //     console.log(moveRabbitUp(matrix))
+    // }
 
 }
 
@@ -162,15 +162,15 @@ function moveRabbitRight(masiv){
 const oldCoord= findCell(masiv,RABBIT_CELL)
 const x=oldCoord[0]
 const y=oldCoord[1]
-const possibleCell=checkEmptyCells(addAllFigures() ,findCell(addAllFigures(),RABBIT_CELL))
-console.log(possibleCell)
+const possibleCell=checkEmptyCells(masiv ,findCell(masiv,RABBIT_CELL))
 if(possibleCell.r===1){
    if(y!==masiv.length-1){
-    if([x][y+1]===WOLF_CELL){
+    console.log("if1")
+    if(masiv[x][y+1]===WOLF_CELL){
         console.log("Game over")
    }
    else if(masiv[x][y+1]===HOME_CELL){
-    console.log("You WON")
+    console.log("You WIN")
    }
    else{
     masiv[x][y+1]=RABBIT_CELL
@@ -180,10 +180,12 @@ if(possibleCell.r===1){
 }
 else{
     if(masiv[x][y-y]===WOLF_CELL){
+        console.log(typeof(masiv[x][y-y]), typeof(WOLF_CELL))
+
         console.log("Game over")
    }
    else if(masiv[x][y-y]===HOME_CELL){
-      console.log("you WON")
+      console.log("you WiN")
    }
    else{
     masiv[x][y-y]=RABBIT_CELL
@@ -191,54 +193,48 @@ else{
    }
 }
 }
-else{
-    return masiv
-}
 return masiv
 
 }
 // ==========================================================================================================
 
-// function moveRabbitLeft(masiv){
-//     const oldCoord= findCell(masiv,RABBIT_CELL)
-//     const x=oldCoord[0]
-//     const y=oldCoord[1]
-//     const possibleCell=checkEmptyCells(addAllFigures() ,findCell(addAllFigures(),RABBIT_CELL))
-//     console.log(possibleCell)
-//     if(possibleCell.l===1){
-//         if(y!==0){
-//          if([x][y-1]===WOLF_CELL){
-//              console.log("Game over")
-//         }
-//         else if(masiv[x][y-1]===HOME_CELL){
-//          console.log("You WON")
-//         }
-//         else{
-//          masiv[x][y-1]=RABBIT_CELL
-//          masiv[x][y]=EMPTY_CELL
-//         }
+function moveRabbitLeft(masiv){
+    const oldCoord= findCell(masiv,RABBIT_CELL)
+    const x=oldCoord[0]
+    const y=oldCoord[1]
+    const possibleCell=checkEmptyCells(addAllFigures() ,findCell(addAllFigures(),RABBIT_CELL))
+    console.log(possibleCell)
+    if(possibleCell.l===1){
+        if(y!==0){
+         if(masiv[x][y-1]===WOLF_CELL){
+             console.log("Game over")
+        }
+        else if(masiv[x][y-1]===HOME_CELL){
+         console.log("You WON")
+        }
+        else{
+         masiv[x][y-1]=RABBIT_CELL
+         masiv[x][y]=EMPTY_CELL
+        }
          
-//      }
-//      else{
-//          if(masiv[x][y+(masiv.length-1)]===WOLF_CELL){
-//              console.log("Game over")
-//         }
-//         else if(masiv[x][y+(masiv.length-1)]===HOME_CELL){
-//            console.log("you WON")
-//         }
-//         else{
-//          masiv[x][y+(masiv.length-1)]=RABBIT_CELL
-//          masiv[x][y]=EMPTY_CELL
-//         }
-//      }
-//      }
-//      else{
-//         return masiv
-//      }
-//      return masiv
+     }
+     else{
+         if(masiv[x][y+(masiv.length-1)]==WOLF_CELL){
+             console.log("Game over")
+        }
+        else if(masiv[x][y+(masiv.length-1)]===HOME_CELL){
+           console.log("you WON")
+        }
+        else{
+         masiv[x][y+(masiv.length-1)]=RABBIT_CELL
+         masiv[x][y]=EMPTY_CELL
+        }
+     }
+     }
+     return masiv
     
 
-// }
+}
 // ==================================================================================================================
 //               
 // ======================================================================================================================
