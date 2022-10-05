@@ -63,8 +63,7 @@ function addFigure(masiv, figure, count) {
 
 //    ==============================================================================================================
 function getCharactersCount(size, percent) {
-    const matrixSize = size
-    const count = Math.round(matrixSize * percent / 100)
+    const count = Math.round(size * percent / 100)
     return count
 }
 // ==========================================================================================================
@@ -74,23 +73,12 @@ function addAllFigures() {
     const addRabbit = (addFigure(addWolfes, RABBIT_CELL, 1))
     const addBand = (addFigure(addRabbit, BAND_CELL, getCharactersCount(getMatrixSize().length, 42)))
     const addHome = (addFigure(addBand, HOME_CELL, 1))
-    return addWolfes
+    return addHome
 }
 
 // ==================================================================================================================================================
-const matrix = addAllFigures()
-document.onkeydown=function(e){
-    if(e.key==="ArrowRight"){
-        console.log(moveRabbitRight(matrix))
-    }
-    if(e.key==="ArrowLeft"){
-        console.log(moveRabbitLeft(matrix))
-    }
-    // if(e.key==="ArrowUp"){
-    //     console.log(moveRabbitUp(matrix))
-    // }
 
-}
+
 
 // ==============================================================================================================
 
@@ -155,7 +143,23 @@ else{
 }
     return possibleCells
 }
-
+function moves(matrix){
+    document.onkeydown=function(e){
+        if(e.key==="ArrowRight"){
+            console.log(moveRabbitRight(matrix))
+        }
+        if(e.key==="ArrowLeft"){
+            console.log(moveRabbitLeft(matrix))
+        }
+        if(e.key==="ArrowUp"){
+            console.log(moveRabbitUp(matrix))
+        }
+        if(e.key==="ArrowDown"){
+            console.log(moveRabbitDown(matrix))
+        }
+    
+    }
+}
 // ===============================================================================================
 
 function moveRabbitRight(masiv){
@@ -236,14 +240,131 @@ function moveRabbitLeft(masiv){
 
 }
 // ==================================================================================================================
-//               
+function moveRabbitUp(masiv){
+    const oldCoord= findCell(masiv,RABBIT_CELL)
+    const x=oldCoord[0]
+    const y=oldCoord[1]
+    const possibleCell=checkEmptyCells(masiv ,findCell(masiv,RABBIT_CELL))
+    if(possibleCell.u===1){
+       if(x!==0){
+        if(masiv[x-1][y]===WOLF_CELL){
+            console.log("Game over")
+       }
+       else if(masiv[x-1][y]===HOME_CELL){
+        console.log("You WIN")
+       }
+       else{
+        masiv[x-1][y]=RABBIT_CELL
+        masiv[x][y]=EMPTY_CELL
+       }
+        
+    }
+    else{
+        if(masiv[x+(masiv.length-1)][y]===WOLF_CELL){    
+            console.log("Game over")
+       }
+       else if(masiv[x+(masiv.length-1)][y]===HOME_CELL){
+          console.log("you WiN")
+       }
+       else{
+        masiv[x+(masiv.length-1)][y]=RABBIT_CELL
+        masiv[x][y]=EMPTY_CELL
+       }
+    }
+    }
+    return masiv
+    
+    }    
+    // ================================================================================================
+    function moveRabbitDown(masiv){
+        const oldCoord= findCell(masiv,RABBIT_CELL)
+        const x=oldCoord[0]
+        const y=oldCoord[1]
+        const possibleCell=checkEmptyCells(masiv ,findCell(masiv,RABBIT_CELL))
+        if(possibleCell.d===1){
+           if(x!==masiv.length-1){
+            if(masiv[x+1][y]===WOLF_CELL){
+                console.log("Game over")
+           }
+           else if(masiv[x+1][y]===HOME_CELL){
+            console.log("You WIN")
+           }
+           else{
+            masiv[x+1][y]=RABBIT_CELL
+            masiv[x][y]=EMPTY_CELL
+           }
+            
+        }
+        else{
+            if(masiv[x-x][y]===WOLF_CELL){    
+                console.log("Game over")
+           }
+           else if(masiv[x-x][y]===HOME_CELL){
+              console.log("you WiN")
+           }
+           else{
+            masiv[x-x][y]=RABBIT_CELL
+            masiv[x][y]=EMPTY_CELL
+           }
+        }
+        }
+        return masiv
+        
+        }   
 // ======================================================================================================================
+function findWolves(masiv){
+    let coordsX=[]
+    const X=masiv.forEach(elem=>{
+        if(elem.includes(WOLF_CELL)){
+            let count=0
+            elem.forEach(c=>{
+                if(c===WOLF_CELL){
+                    count++
+                }
+            })
+            if(count>1){
+                for(let i=0;i<count;i++){
+                    coordsX.push(masiv.indexOf(elem))
+                }
+            }
+            else{
+                coordsX.push(masiv.indexOf(elem))
+            }
+   
+        }
+    })
+   const coordsY=[]
+    const Y= masiv.forEach(el=>{
+        coordsX.forEach(e=>{
+           if(masiv.indexOf(el)===e){
+             el.forEach(a=>{
+                if(a===WOLF_CELL){
+                    coordsY.push(el.indexOf(a))
+                }
+             })
+           }})
+           }
+         )
+//     const wolvesCoords=[]
+//    for(let i=0;i<getCharactersCount(getMatrixSize().length, 60);i++){
+//     wolvesCoords.push([coordsX[i],coordsY[i]])
+//    }
+//     return wolvesCoords
+console.log(coordsX,coordsY)
+    }
+        
+        
+       
+   
 
+
+// =====================================================================================================================
 function startTheGAme() {
-    
-    console.log(matrix)
-    console.log(checkEmptyCells(matrix,findCell(matrix,RABBIT_CELL)))
-    
+   const matrix=addAllFigures()
+   console.log(matrix)
+   moves(matrix)
+   console.log(checkEmptyCells(matrix,findCell(matrix,RABBIT_CELL)))
+  findWolves(matrix)
 }
 // =======================================================================================================================
 
