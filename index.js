@@ -316,35 +316,27 @@ function findWolves(masiv){
     let coordsX=[]
     const X=masiv.forEach(elem=>{
         if(elem.includes(WOLF_CELL)){
-            let count=0
             elem.forEach(c=>{
                 if(c===WOLF_CELL){
-                    count++
+                        coordsX.push(masiv.indexOf(elem))
+                    }
+                })
+            }
+        })
+    
+   const coordsY=[]
+   const Y=masiv.forEach(element=>{
+    coordsX.forEach(elem=>{
+        if(masiv.indexOf(element)===elem){
+            element.forEach(el=>{
+                if(el===WOLF_CELL){
+                    console.log(element.indexOf(el))
+                    coordsY.push(element.indexOf(el))
                 }
             })
-            if(count>1){
-                for(let i=0;i<count;i++){
-                    coordsX.push(masiv.indexOf(elem))
-                }
-            }
-            else{
-                coordsX.push(masiv.indexOf(elem))
-            }
-   
         }
     })
-   const coordsY=[]
-    const Y= masiv.forEach(el=>{
-        coordsX.forEach(e=>{
-           if(masiv.indexOf(el)===e){
-             el.forEach(a=>{
-                if(a===WOLF_CELL){
-                    coordsY.push(el.indexOf(a))
-                }
-             })
-           }})
-           }
-         )
+   })
 //     const wolvesCoords=[]
 //    for(let i=0;i<getCharactersCount(getMatrixSize().length, 60);i++){
 //     wolvesCoords.push([coordsX[i],coordsY[i]])
