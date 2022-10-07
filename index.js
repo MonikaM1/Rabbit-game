@@ -313,50 +313,33 @@ function moveRabbitUp(masiv){
         }   
 // ======================================================================================================================
 function findWolves(masiv){
-    let coordsX=[]
-    const X=masiv.forEach(elem=>{
-        if(elem.includes(WOLF_CELL)){
-            elem.forEach(c=>{
-                if(c===WOLF_CELL){
-                        coordsX.push(masiv.indexOf(elem))
-                    }
-                })
-            }
-        })
-    
-   const coordsY=[]
-   const Y=masiv.forEach(element=>{
-    coordsX.forEach(elem=>{
-        if(masiv.indexOf(element)===elem){
-            element.forEach(el=>{
-                if(el===WOLF_CELL){
-                    console.log(element.indexOf(el))
-                    coordsY.push(element.indexOf(el))
-                }
-            })
+    const coordsX=[]
+    const coordsY=[]
+    const wolfCoords=[]
+  masiv.forEach(element=>{
+    if(element.includes(WOLF_CELL)){
+       for(let i=0;i<element.length;i++){
+        if(element[i]===WOLF_CELL){
+            coordsX.push(masiv.indexOf(element))
+            coordsY.push(i)
         }
-    })
-   })
-//     const wolvesCoords=[]
-//    for(let i=0;i<getCharactersCount(getMatrixSize().length, 60);i++){
-//     wolvesCoords.push([coordsX[i],coordsY[i]])
-//    }
-//     return wolvesCoords
-console.log(coordsX,coordsY)
+       } 
     }
+  })
+ for(let i=0;i<coordsX.length;i++){
+    wolfCoords.push([coordsX[i],coordsY[i]])
+ }
+   return wolfCoords
+// return coord
+}
         
-        
-       
-   
-
-
 // =====================================================================================================================
 function startTheGAme() {
    const matrix=addAllFigures()
    console.log(matrix)
    moves(matrix)
    console.log(checkEmptyCells(matrix,findCell(matrix,RABBIT_CELL)))
-  findWolves(matrix)
+  console.log(findWolves(matrix))
 }
 // =======================================================================================================================
 
