@@ -332,6 +332,21 @@ function findWolves(masiv){
    return wolfCoords
 // return coord
 }
+// =================================================================================================
+function moveWolves(masiv){
+    const rabbitCoords=findCell(masiv,RABBIT_CELL)
+    const wolvesCoords=findWolves(masiv)
+    wolvesCoords.forEach(el=>{
+        rabbitCoords.forEach(elem=>{
+            // el.forEach(e=>e{
+            //     const a=abs(e-elem)
+            // })
+
+            
+        })
+        
+    })
+}
         
 // =====================================================================================================================
 function startTheGAme() {
@@ -339,7 +354,7 @@ function startTheGAme() {
    console.log(matrix)
    moves(matrix)
    console.log(checkEmptyCells(matrix,findCell(matrix,RABBIT_CELL)))
-  console.log(findWolves(matrix))
+   moveWolves(matrix)
 }
 // =======================================================================================================================
 
