@@ -318,9 +318,9 @@ function moves(masiv) {
 // }
 const moveRabbit = (masiv, direction) => {
   const rabbitCurrentCoords = findCell(masiv,RABBIT_CELL)
-  console.log("rabbit"+ rabbitCurrentCoords)
+  // console.log("rabbit"+ rabbitCurrentCoords)
   const rabbitLegalMoves = legalMoves(rabbitCurrentCoords)
-  console.log(rabbitLegalMoves)
+  // console.log(rabbitLegalMoves)
   const correctedMoves = correctMoves(rabbitLegalMoves, masiv)
   const rabbitMoveDirection = checkRabbitDirection(
     correctedMoves[direction],
@@ -383,25 +383,60 @@ const correctMoves = (rabbitLegalMoves,masiv) => {
   return rabbitLegalMoves.map((coord) => teleport(coord, masiv))
 }
 // =================================================================================================
-function moveWolves(masiv) {
-  const rabbitCoords =findCharacterCords(masiv, RABBIT_CELL)
-  const wolvesCoords = findCharacterCords(masiv,WOLF_CELL)
 
+const moveWolves=(masiv)=>{
+  const wolvesCurrentCoords=findCharacterCords(masiv, WOLF_CELL)
+  const rabbitCurrentCoords=findCell(masiv, RABBIT_CELL)
+  const wolvesPossibleMoves=wolvesLegalMoves(wolvesCurrentCoords)
+  const wCorrectedMOves=wolvesCorrectedMOves(wolvesPossibleMoves,rabbitCurrentCoords)
+  console.log(wCorrectedMOves)
+}
+const wolvesLegalMoves=(coords)=>{
+  const moves=[]
+ coords.forEach(el=>{
+    moves.push(legalMoves(el))
+  })
+return moves
+}
+const wolvesCorrectMOves=(coordsArr,r)=>{
+  const distances=[]
+coordsArr.forEach(el=>{
+  distances.push(distance(el,r))
+})
+return Math.min.apply(null, distances)
 }
 
-// =====================================================================================================================
+const wolvesCorrectedMOves=(coordsArray,r)=>{
+  const correctMoves=[]
+coordsArray.forEach(el=>{
+  correctMoves.push(wolvesCorrectMOves(el,r))
+})
+return correctMoves
+}
+const checkWolvesDirection=(coord)=>{
+  if(coord!==undefined){
+    return coord
+  }
+  else return
+}
+const wolvesChekedCoords=(coordsArr)=>{
+  coordsArr.forEach
+}
+const distance=([x,y],[j,k])=>{
+  return Math.sqrt(Math.pow((x-j),2)+Math.pow((y-k),2))
+}
+
+
+
+
+
 function startTheGAme() {
   const matrix = addAllFigures()
   console.log(matrix)
   moves(matrix)
   moveWolves(matrix)
 }
-// =======================================================================================================================
-
 start.addEventListener("click", () => {
   startTheGAme()
 })
-
-// =======================================================================================================================
-
 
